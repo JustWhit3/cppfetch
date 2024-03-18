@@ -48,6 +48,10 @@ function(launch_exec)
 
     # Link to cppfetch
     target_link_libraries(${EXAMPLE_1} PRIVATE cppfetch::cppfetch)
+
+    # Link to libcurl
+    find_package(CURL REQUIRED)
+    target_link_libraries(${EXAMPLE_1} PRIVATE CURL::libcurl)
 endfunction()
 
 # Compile for every compiler except clang 14
