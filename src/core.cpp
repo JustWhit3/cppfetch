@@ -8,7 +8,29 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <mutex>
 #include <string>
+
+/**
+ * @brief Callback function for writing downloaded data to file.
+ *
+ * @param contents Pointer to the data.
+ * @param size Size of each element.
+ * @param nmemb Number of elements.
+ * @param file_path Pointer to the file path where data is to be written.
+ * @return Total size of data written.
+ */
+size_t write_callback(void* contents, size_t size, size_t nmemb, std::filesystem::path* file_path) {
+    std::ofstream file(*file_path, std::ios::out | std::ios::app | std::ios::binary);
+    if (!file.is_open()) {
+        std::cerr << "Cannot open file: " << file_path->string() << "\n";
+        std::exit(0);
+    }
+    size_t totalSize = size * nmemb;
+    file.write(reinterpret_cast<const char*>(contents), totalSize);
+    file.close();
+    return totalSize;
+}
 
 namespace cppfetch {
     /**
@@ -21,28 +43,40 @@ namespace cppfetch {
      *
      * @return Reference to the vector containing the list of files.
      */
-    const std::vector<std::string>& cppfetch::get_files_list() const { return this->files_list; }
+    const std::vector<std::string>& cppfetch::get_files_list() const {
+        std::lock_guard<std::mutex> lock(mutex);
+        return this->files_list;
+    }
 
     /**
      * @brief Get the number of threads used for fetching files in parallel.
      *
      * @return Number of threads.
      */
-    int16_t cppfetch::get_n_threads() const { return this->n_threads; }
+    int16_t cppfetch::get_n_threads() const {
+        std::lock_guard<std::mutex> lock(mutex);
+        return this->n_threads;
+    }
 
     /**
      * @brief Set verbose mode.
      *
      * @param flag Boolean flag indicating whether to enable verbose mode.
      */
-    void cppfetch::set_verbose(bool flag) { this->verbose = flag; }
+    void cppfetch::set_verbose(bool flag) {
+        std::lock_guard<std::mutex> lock(mutex);
+        this->verbose = flag;
+    }
 
     /**
      * @brief Add a file to the list of files to be fetched.
      *
      * @param file Path of the file to be added.
      */
-    void cppfetch::add_file(const std::string& file) { this->files_list.push_back(file); }
+    void cppfetch::add_file(const std::string& file) {
+        std::lock_guard<std::mutex> lock(mutex);
+        this->files_list.push_back(file);
+    }
 
     /**
      * @brief Remove a file from the list of files to be fetched.
@@ -50,33 +84,13 @@ namespace cppfetch {
      * @param file Path of the file to be removed.
      */
     void cppfetch::remove_file(const std::string& file) {
+        std::lock_guard<std::mutex> lock(mutex);
         auto it = std::find(this->files_list.begin(), this->files_list.end(), file);
         if (it != this->files_list.end()) {
             this->files_list.erase(it);
         } else {
             std::cerr << "File \"" << file << "\" has not been added to the list of files to be downloaded!\n";
         }
-    }
-
-    /**
-     * @brief Callback function for writing downloaded data to file.
-     *
-     * @param contents Pointer to the data.
-     * @param size Size of each element.
-     * @param nmemb Number of elements.
-     * @param file_path Pointer to the file path where data is to be written.
-     * @return Total size of data written.
-     */
-    size_t cppfetch::write_callback(void* contents, size_t size, size_t nmemb, std::filesystem::path* file_path) {
-        std::ofstream file(*file_path, std::ios::out | std::ios::app | std::ios::binary);
-        if (!file.is_open()) {
-            std::cerr << "Cannot open file: " << file_path->string() << "\n";
-            std::exit(0);
-        }
-        size_t totalSize = size * nmemb;
-        file.write(reinterpret_cast<const char*>(contents), totalSize);
-        file.close();
-        return totalSize;
     }
 
     /**
@@ -87,6 +101,7 @@ namespace cppfetch {
      * directory with a default name produced starting from the URL name.
      */
     void cppfetch::download_single_file(const std::string& file_url, const std::filesystem::path& path_to_save) const {
+        std::lock_guard<std::mutex> lock(mutex);
         if (this->verbose) {
 #pragma omp critical
             { std::cout << "Downloading file: " << file_url << "...\n"; }
@@ -98,18 +113,14 @@ namespace cppfetch {
         if (curl) {
             curl_easy_setopt(curl, CURLOPT_URL, file_url.c_str());
 
-            // Choose standard file name if path is empty
-            std::filesystem::path actual_path_to_save = path_to_save;
-            if (actual_path_to_save.empty()) {
-                std::string filename;
-                size_t last_slash = file_url.find_last_of('/');
-                if (last_slash != std::string::npos) {
-                    filename = file_url.substr(last_slash + 1);
-                } else {
-                    filename = "downloaded_file";
-                }
-                actual_path_to_save = filename;
+            std::string filename;
+            size_t last_slash = file_url.find_last_of('/');
+            if (last_slash != std::string::npos) {
+                filename = file_url.substr(last_slash + 1);
+            } else {
+                filename = "downloaded_file";
             }
+            std::filesystem::path actual_path_to_save = path_to_save / filename;
 
             curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
             curl_easy_setopt(curl, CURLOPT_WRITEDATA, &actual_path_to_save);
@@ -132,12 +143,17 @@ namespace cppfetch {
      *
      * @return True if verbose mode is enabled, false otherwise.
      */
-    bool cppfetch::is_verbose() const { return this->verbose; }
+    bool cppfetch::is_verbose() const {
+        std::lock_guard<std::mutex> lock(mutex);
+        return this->verbose;
+    }
 
-    // TODO: docstring
-    // TODO: set num threads omp_set_num_threads(n_threads);
-    // TODO: progress bars
-    // TODO: choose if parallelize or not
+    /**
+     * Download all files in the files list.
+     *
+     * @param path_to_save The path to save downloaded files.
+     * @param parallelize  Flag indicating whether to parallelize the download process.
+     */
     void cppfetch::download_all(const std::filesystem::path& path_to_save, bool parallelize) const {
         if (parallelize) {
 #pragma omp parallel for
@@ -149,5 +165,18 @@ namespace cppfetch {
                 this->download_single_file(file, path_to_save);
             }
         }
+    }
+
+    /**
+     * Set the number of threads for parallel processing.
+     *
+     * @param n_threads_mod The number of threads to set.
+     */
+    void cppfetch::set_n_threads(int16_t n_threads_mod) {
+        std::lock_guard<std::mutex> lock(mutex);
+        if (n_threads_mod > n_threads) {
+            std::cout << "the selected number of threads exceeds the maximum available threads!\n";
+        }
+        this->n_threads = n_threads_mod;
     }
 }  // namespace cppfetch

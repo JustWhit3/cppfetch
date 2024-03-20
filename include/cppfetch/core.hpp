@@ -1,4 +1,9 @@
 // Thread safety
+// Docs
+// Doxygen
+// Workflows
+// progress bars
+// Finisci header utils: sposta lì write callback e fai tests
 
 #pragma once
 #ifndef CPPFETCH_CORE_HPP
@@ -6,6 +11,7 @@
 
 #include <cstdint>
 #include <filesystem>
+#include <mutex>
 #include <string>
 #include <vector>
 
@@ -22,6 +28,7 @@ namespace cppfetch {
 
             // Setters
             void set_verbose(bool flag);
+            void set_n_threads(int16_t n_threads_mod);
 
             // Methods
             void download_single_file(const std::string& file_url,
@@ -34,12 +41,13 @@ namespace cppfetch {
         private:
 
             // Methods
-            static size_t write_callback(void* contents, size_t size, size_t nmemb, std::filesystem::path* file_path);
+            // size_t write_callback(void* contents, size_t size, size_t nmemb, std::filesystem::path* file_path);
 
             // Members
             std::vector<std::string> files_list;
             int16_t n_threads;
             bool verbose;
+            mutable std::mutex mutex;
     };
 }  // namespace cppfetch
 

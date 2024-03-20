@@ -63,6 +63,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
                 ${CMAKE_SOURCE_DIR}/include/cppfetch/*.hpp
                 ${CMAKE_SOURCE_DIR}/examples/*.cpp
                 ${CMAKE_SOURCE_DIR}/test/unit_tests/*.cpp
+                ${CMAKE_SOURCE_DIR}/test/other_tests/*.cpp
             )
             add_custom_target(format
                 COMMAND ${CLANG_FORMAT_EXECUTABLE}

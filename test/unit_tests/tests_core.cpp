@@ -28,7 +28,8 @@ TEST(CoreTest, Getters) {
     EXPECT_EQ("test", downloader.get_files_list()[0]);
 
     // get_n_threads
-    // ...
+    downloader.set_n_threads(10);
+    ASSERT_EQ(downloader.get_n_threads(), 10);
 }
 
 TEST(CoreTest, Setters) {
@@ -51,12 +52,12 @@ TEST(CoreTest, download_single_file) {
     ASSERT_TRUE(std::filesystem::is_regular_file("2207.01827.pdf"));
 
     // Case with different name
-    downloader.download_single_file("https://arxiv.org/pdf/2207.01827.pdf", "trash/test.pdf");
-    ASSERT_TRUE(std::filesystem::exists("trash/test.pdf"));
-    ASSERT_TRUE(std::filesystem::is_regular_file("trash/test.pdf"));
+    downloader.download_single_file("https://arxiv.org/pdf/2207.01827.pdf", "trash");
+    ASSERT_TRUE(std::filesystem::exists("trash/2207.01827.pdf"));
+    ASSERT_TRUE(std::filesystem::is_regular_file("trash/2207.01827.pdf"));
 
     std::filesystem::remove("2207.01827.pdf");
-    std::filesystem::remove("trash/test.pdf");
+    std::filesystem::remove("trash/2207.01827.pdf");
 }
 
 TEST(CoreTest, remove_file) {
@@ -66,4 +67,23 @@ TEST(CoreTest, remove_file) {
     downloader.remove_file("test.txt");
     std::vector<std::string> result = {"test_2.txt"};
     ASSERT_EQ(downloader.get_files_list(), result);
+}
+
+TEST(CoreTest, download_all) {
+    cppfetch::cppfetch downloader;
+
+    // Parallel
+    downloader.add_file("https://arxiv.org/pdf/2207.01827.pdf");
+    downloader.add_file("https://arxiv.org/ftp/arxiv/papers/2304/2304.13703.pdf");
+    downloader.download_all();
+
+    // Sequential
+    downloader.add_file("https://arxiv.org/pdf/2207.01827.pdf");
+    downloader.add_file("https://arxiv.org/ftp/arxiv/papers/2304/2304.13703.pdf");
+    downloader.download_all("", false);
+
+    std::filesystem::remove("2207.01827.pdf");
+    std::filesystem::remove("2304.13703.pdf");
+    std::filesystem::remove("trash/2207.01827.pdf");
+    std::filesystem::remove("trash/2304.13703.pdf");
 }

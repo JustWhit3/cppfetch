@@ -5,6 +5,7 @@ int main() {
     // Initialize the downloader
     cppfetch::cppfetch downloader;
     downloader.set_verbose(true);
+    downloader.set_n_threads(50);
 
     // Add files to download
     downloader.add_file("https://arxiv.org/pdf/2207.01827.pdf");
