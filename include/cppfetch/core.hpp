@@ -1,3 +1,7 @@
+// Progress bars o cose animate
+// Tests
+// Docstrings
+
 #pragma once
 #ifndef CPPFETCH_CORE_HPP
 #define CPPFETCH_CORE_HPP
@@ -15,12 +19,16 @@ namespace cppfetch {
             explicit cppfetch();
 
             // Methods
+            void download_single_file(const std::string& file_url,
+                                      const std::filesystem::path& path_to_save = "") const;
             void add_file(const std::string& file);
-            void download_single_file(const std::string& file_url, const std::string& path_to_save);
-            void download_all();
+            void download_all() const;
 
             // Getters
-            const std::vector<std::string>& get_files_list();
+            const std::vector<std::string>& get_files_list() const;
+
+            // Setters
+            void set_verbose(bool flag);
 
         private:
 
@@ -30,6 +38,7 @@ namespace cppfetch {
             // Members
             std::vector<std::string> files_list;
             int16_t n_threads;
+            bool verbose;
     };
 }  // namespace cppfetch
 

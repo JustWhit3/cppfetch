@@ -22,9 +22,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # Paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-# Fetching deps
-# add_subdirectory(deps)
-
 # Adding specific compiler flags
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     set(COMPILE_FLAGS "/Wall /Yd /Oy /Gw")
@@ -75,6 +72,14 @@ endif()
 
 # Compiling examples
 add_subdirectory(examples)
+
+# Compile tests
+option( CPPFETCH_TESTS "Enable / disable tests." ON )
+if( CPPFETCH_TESTS )
+    add_subdirectory( test )
+else()
+    message( STATUS "Skipping tests." )
+endif()
 
 # Setting installation paths
 target_include_directories(cppfetch INTERFACE

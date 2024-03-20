@@ -4,10 +4,10 @@
 int main() {
     // Initialize the downloader
     cppfetch::cppfetch downloader;
+    downloader.set_verbose(true);
 
     // Download single file
-    downloader.download_single_file("https://root.cern/download/root_v6.30.04.Linux-ubuntu22.04-x86_64-gcc11.4.tar.gz",
-                                    "$HOME");
+    downloader.download_single_file("https://root.cern/download/root_v6.30.04.Linux-ubuntu22.04-x86_64-gcc11.4.tar.gz");
 
     // Add files to download
     // downloader.add_file("my_file.txt");
