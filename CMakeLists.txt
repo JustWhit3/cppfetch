@@ -39,6 +39,11 @@ file(GLOB_RECURSE SRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 add_library(cppfetch STATIC ${SRC_FILES})
 add_library(cppfetch::cppfetch ALIAS cppfetch)
 
+# Link to OpenMP
+find_package(OpenMP REQUIRED)
+target_link_libraries(cppfetch PRIVATE OpenMP::OpenMP_CXX)
+target_link_libraries(cppfetch PRIVATE OpenMP::OpenMP_CXX)
+
 # Adding cppcheck properties
 find_program(CPPCHECK_FOUND cppcheck)
 if (CPPCHECK_FOUND AND CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -57,6 +62,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
                 ${CMAKE_SOURCE_DIR}/src/*.cpp
                 ${CMAKE_SOURCE_DIR}/include/cppfetch/*.hpp
                 ${CMAKE_SOURCE_DIR}/examples/*.cpp
+                ${CMAKE_SOURCE_DIR}/test/unit_tests/*.cpp
             )
             add_custom_target(format
                 COMMAND ${CLANG_FORMAT_EXECUTABLE}

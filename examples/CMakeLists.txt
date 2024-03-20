@@ -30,28 +30,34 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COMPILE_FLAGS}")
 function(launch_exec)
 
     # Declare executables vars
-    set(EXAMPLE_1 "cppfetch_example_1")
+    set(EXAMPLE_1 "cppfetch_example_single")
+    set(EXAMPLE_2 "cppfetch_example_multiple")
 
     # Create executables
-    add_executable(${EXAMPLE_1} example_1.cpp)
+    add_executable(${EXAMPLE_1} single_file_download.cpp)
+    add_executable(${EXAMPLE_2} multiple_files_download.cpp)
 
     # Adding cppcheck properties
     find_program(CPPCHECK_FOUND cppcheck)
     if (CPPCHECK_FOUND AND CMAKE_BUILD_TYPE STREQUAL "Debug")
         set(cppcheck_options "--enable=warning" "--inconclusive" "--force" "--inline-suppr")
         set_target_properties(${EXAMPLE_1} PROPERTIES CXX_CPPCHECK "${CPPCHECK_FOUND}")
+        set_target_properties(${EXAMPLE_2} PROPERTIES CXX_CPPCHECK "${CPPCHECK_FOUND}")
     endif()
 
     # Link to OpenMP
     find_package(OpenMP REQUIRED)
     target_link_libraries(${EXAMPLE_1} PRIVATE OpenMP::OpenMP_CXX)
+    target_link_libraries(${EXAMPLE_2} PRIVATE OpenMP::OpenMP_CXX)
 
     # Link to cppfetch
     target_link_libraries(${EXAMPLE_1} PRIVATE cppfetch::cppfetch)
+    target_link_libraries(${EXAMPLE_2} PRIVATE cppfetch::cppfetch)
 
     # Link to libcurl
     find_package(CURL REQUIRED)
     target_link_libraries(${EXAMPLE_1} PRIVATE CURL::libcurl)
+    target_link_libraries(${EXAMPLE_2} PRIVATE CURL::libcurl)
 endfunction()
 
 # Compile for every compiler except clang 14
