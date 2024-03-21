@@ -1,14 +1,14 @@
-// Thread safety
 // Docs
 // Doxygen
 // Workflows
 // progress bars
-// Finisci header utils: sposta lì write callback e fai tests
+// Thread safety
 
 #pragma once
 #ifndef CPPFETCH_CORE_HPP
 #define CPPFETCH_CORE_HPP
 
+#include <cstddef>
 #include <cstdint>
 #include <filesystem>
 #include <mutex>
