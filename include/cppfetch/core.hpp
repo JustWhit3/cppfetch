@@ -1,8 +1,9 @@
+// Finisci di settare IWYU
 // Docs
+// Altri file di sistema
 // Doxygen
 // Workflows
 // progress bars
-// Thread safety
 
 #pragma once
 #ifndef CPPFETCH_CORE_HPP
@@ -39,9 +40,6 @@ namespace cppfetch {
             void download_all(const std::filesystem::path& path_to_save = "", bool parallelize = true) const;
 
         private:
-
-            // Methods
-            // size_t write_callback(void* contents, size_t size, size_t nmemb, std::filesystem::path* file_path);
 
             // Members
             std::vector<std::string> files_list;
