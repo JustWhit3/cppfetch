@@ -94,7 +94,7 @@ services:
         command: >
             bash -c "cd /proj
             && apt update
-            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-dev
+            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-12-dev
             && rm -rf build
             && cmake -B build -D CMAKE_CXX_compiler=clang++
             && cmake --build build"
@@ -109,7 +109,7 @@ services:
         command: >
             bash -c "cd /proj
             && apt update
-            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-dev
+            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-13-dev
             && rm -rf build
             && cmake -B build -D CMAKE_CXX_compiler=clang++
             && cmake --build build"
@@ -124,7 +124,7 @@ services:
         command: >
             bash -c "cd /proj
             && apt update
-            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-dev
+            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-14-dev
             && rm -rf build
             && cmake -B build -D CMAKE_CXX_compiler=clang++
             && cmake --build build"
@@ -139,7 +139,7 @@ services:
         command: >
             bash -c "cd /proj
             && apt update
-            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-dev
+            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-15-dev
             && rm -rf build
             && cmake -B build -D CMAKE_CXX_compiler=clang++
             && cmake --build build"
@@ -154,7 +154,7 @@ services:
         command: >
             bash -c "cd /proj
             && apt update
-            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-dev
+            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-16-dev
             && rm -rf build
             && cmake -B build -D CMAKE_CXX_compiler=clang++
             && cmake --build build"
@@ -169,7 +169,7 @@ services:
         command: >
             bash -c "cd /proj
             && apt update
-            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-dev
+            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-17-dev
             && rm -rf build
             && cmake -B build -D CMAKE_CXX_compiler=clang++
             && cmake --build build"
@@ -184,7 +184,7 @@ services:
         command: >
             bash -c "cd /proj
             && apt update
-            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-dev
+            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-18-dev
             && rm -rf build
             && cmake -B build -D CMAKE_CXX_compiler=clang++
             && cmake --build build"
@@ -199,7 +199,7 @@ services:
         command: >
             bash -c "cd /proj
             && apt update
-            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-dev
+            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-19-dev
             && rm -rf build
             && cmake -B build -D CMAKE_CXX_compiler=clang++
             && cmake --build build"
