@@ -136,6 +136,18 @@ namespace cppfetch {
      * @param parallelize  Flag indicating whether to parallelize the download process.
      */
     void cppfetch::download_all(const std::filesystem::path& path_to_save, bool parallelize) const {
+#if defined(__clang__) && (__clang_major__ == 11)
+        if (parallelize) {
+#pragma omp parallel for
+            for (size_t i = 0; i < this->files_list.size(); ++i) {
+                this->download_single_file(this->files_list[i], path_to_save);
+            }
+        } else {
+            for (size_t i = 0; i < this->files_list.size(); ++i) {
+                this->download_single_file(this->files_list[i], path_to_save);
+            }
+        }
+#else
         if (parallelize) {
 #pragma omp parallel for
             for (const auto& file: this->files_list) {
@@ -146,6 +158,7 @@ namespace cppfetch {
                 this->download_single_file(file, path_to_save);
             }
         }
+#endif
     }
 
     /**

@@ -50,6 +50,21 @@ services:
             && cmake -B build
             && cmake --build build"
 
+    # gcc 13
+    build_gcc_13:
+        image: ghcr.io/rikorose/gcc-cmake:gcc-13
+        network_mode: bridge
+        volumes:
+            - .:/proj
+        container_name: build
+        command: >
+            bash -c "cd /proj
+            && apt update
+            && apt install -y libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev
+            && rm -rf build
+            && cmake -B build
+            && cmake --build build"
+
     ##########################################
     #      CLANG
     ##########################################
@@ -102,6 +117,81 @@ services:
     # clang 14
     build_clang_14:
         image: silkeh/clang:14
+        network_mode: bridge
+        volumes:
+            - .:/proj
+        container_name: build
+        command: >
+            bash -c "cd /proj
+            && apt update
+            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-dev
+            && rm -rf build
+            && cmake -B build -D CMAKE_CXX_compiler=clang++
+            && cmake --build build"
+
+    # clang 15
+    build_clang_15:
+        image: silkeh/clang:15
+        network_mode: bridge
+        volumes:
+            - .:/proj
+        container_name: build
+        command: >
+            bash -c "cd /proj
+            && apt update
+            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-dev
+            && rm -rf build
+            && cmake -B build -D CMAKE_CXX_compiler=clang++
+            && cmake --build build"
+
+    # clang 16
+    build_clang_16:
+        image: silkeh/clang:16
+        network_mode: bridge
+        volumes:
+            - .:/proj
+        container_name: build
+        command: >
+            bash -c "cd /proj
+            && apt update
+            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-dev
+            && rm -rf build
+            && cmake -B build -D CMAKE_CXX_compiler=clang++
+            && cmake --build build"
+
+    # clang 17
+    build_clang_17:
+        image: silkeh/clang:17
+        network_mode: bridge
+        volumes:
+            - .:/proj
+        container_name: build
+        command: >
+            bash -c "cd /proj
+            && apt update
+            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-dev
+            && rm -rf build
+            && cmake -B build -D CMAKE_CXX_compiler=clang++
+            && cmake --build build"
+
+    # clang 18
+    build_clang_18:
+        image: silkeh/clang:18
+        network_mode: bridge
+        volumes:
+            - .:/proj
+        container_name: build
+        command: >
+            bash -c "cd /proj
+            && apt update
+            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-dev
+            && rm -rf build
+            && cmake -B build -D CMAKE_CXX_compiler=clang++
+            && cmake --build build"
+
+    # clang 19
+    build_clang_19:
+        image: silkeh/clang:19
         network_mode: bridge
         volumes:
             - .:/proj
