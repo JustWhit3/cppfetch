@@ -130,7 +130,7 @@ namespace cppfetch {
     }
 
     /**
-     * Download all files in the files list.
+     * Download all files from the files list.
      *
      * @param path_to_save The path to save downloaded files.
      * @param parallelize  Flag indicating whether to parallelize the download process.
