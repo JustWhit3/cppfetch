@@ -17,10 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      # - name: Build with clang 11
-      #   run: docker-compose run --rm build_clang_11
-      - name: Build with clang 12
-        run: docker-compose run --rm build_clang_12
+      - name: Build with clang 11
+        run: docker-compose run --rm build_clang_11
+      # - name: Build with clang 12
+      #   run: docker-compose run --rm build_clang_12
       - name: Build with clang 13
         run: docker-compose run --rm build_clang_13
       - name: Build with clang 14
