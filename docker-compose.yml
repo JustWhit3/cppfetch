@@ -70,19 +70,19 @@ services:
     ##########################################
 
     # clang 11
-    build_clang_11:
-        image: silkeh/clang:11
-        network_mode: bridge
-        volumes:
-            - .:/proj
-        container_name: build
-        command: >
-            bash -c "cd /proj
-            && apt update
-            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-dev
-            && rm -rf build
-            && cmake -B build -D CMAKE_CXX_compiler=clang++
-            && cmake --build build"
+    # build_clang_11:
+    #     image: silkeh/clang:11
+    #     network_mode: bridge
+    #     volumes:
+    #         - .:/proj
+    #     container_name: build
+    #     command: >
+    #         bash -c "cd /proj
+    #         && apt update
+    #         && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-dev
+    #         && rm -rf build
+    #         && cmake -B build -D CMAKE_CXX_compiler=clang++
+    #         && cmake --build build"
 
     # clang 12
     build_clang_12:
