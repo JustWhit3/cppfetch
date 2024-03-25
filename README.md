@@ -1,5 +1,5 @@
 Work in progress...
 
-Deps: libgtest-dev libcurl4 libcurl4-openssl-dev
+Deps: libgtest-dev libgmock-dev libcurl4 libcurl4-openssl-dev 
 
-OpenMP già incluso
+OpenMP già incluso (libomp-dev)

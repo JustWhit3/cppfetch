@@ -35,7 +35,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COMPILE_FLAGS}")
 
 # Linking to GTest
 find_package(GTest REQUIRED)
-target_link_libraries( ${UNIT} PRIVATE GTest::GTest GTest::Main )
+target_link_libraries(${UNIT} PRIVATE GTest::GTest GTest::Main)
 
 # Link to OpenMP
 find_package(OpenMP REQUIRED)
