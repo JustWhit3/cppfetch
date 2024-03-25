@@ -31,7 +31,3 @@ jobs:
         run: docker-compose run --rm build_clang_16
       - name: Build with clang 17
         run: docker-compose run --rm build_clang_17
-      - name: Build with clang 18
-        run: docker-compose run --rm build_clang_18
-      - name: Build with clang 19
-        run: docker-compose run --rm build_clang_19

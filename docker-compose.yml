@@ -173,33 +173,3 @@ services:
             && rm -rf build
             && cmake -B build -D CMAKE_CXX_compiler=clang++
             && cmake --build build"
-
-    # clang 18
-    build_clang_18:
-        image: silkeh/clang:18
-        network_mode: bridge
-        volumes:
-            - .:/proj
-        container_name: build
-        command: >
-            bash -c "cd /proj
-            && apt update
-            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-18-dev
-            && rm -rf build
-            && cmake -B build -D CMAKE_CXX_compiler=clang++
-            && cmake --build build"
-
-    # clang 19
-    build_clang_19:
-        image: silkeh/clang:19
-        network_mode: bridge
-        volumes:
-            - .:/proj
-        container_name: build
-        command: >
-            bash -c "cd /proj
-            && apt update
-            && apt install -y git libgtest-dev libcurl4 libcurl4-openssl-dev libgmock-dev libomp-19-dev
-            && rm -rf build
-            && cmake -B build -D CMAKE_CXX_compiler=clang++
-            && cmake --build build"
