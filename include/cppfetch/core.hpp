@@ -1,9 +1,10 @@
+// Altro?
+
 // Finisci di settare IWYU
 // Docs per README
 // Altri file di sistema
-// Doxygen
+// Zenodo
 // progress bars
-// test su windows 
 
 #pragma once
 #ifndef CPPFETCH_CORE_HPP

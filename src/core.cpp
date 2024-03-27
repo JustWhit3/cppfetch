@@ -169,7 +169,7 @@ namespace cppfetch {
     void cppfetch::set_n_threads(int16_t n_threads_mod) {
         std::lock_guard<std::mutex> lock(mutex);
         if (n_threads_mod > n_threads) {
-            std::cout << "the selected number of threads exceeds the maximum available threads!\n";
+            std::cout << "Warning: the selected number of threads exceeds the maximum available threads!\n";
         }
         this->n_threads = n_threads_mod;
     }
