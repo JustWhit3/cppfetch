@@ -4,14 +4,14 @@
 #include <algorithm>
 #include <cppfetch/core.hpp>
 #include <cppfetch/utils.hpp>
-#include <cstddef>
 #include <cstdint>
 #include <cstdlib>
 #include <filesystem>
-#include <fstream>
 #include <iostream>
 #include <mutex>
+#include <sstream>
 #include <string>
+#include <vector>
 
 namespace cppfetch {
     /**

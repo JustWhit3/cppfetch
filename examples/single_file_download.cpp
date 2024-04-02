@@ -1,5 +1,4 @@
 #include <cppfetch/core.hpp>
-#include <iostream>
 
 int main() {
     // Initialize the downloader

@@ -1,8 +1,10 @@
 #include <cppfetch/utils.hpp>
 #include <cstddef>
+#include <cstdlib>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <string>
 
 namespace cppfetch {
     /**

@@ -1,11 +1,3 @@
-// Altro?
-
-// Finisci di settare IWYU
-// Docs per README
-// Altri file di sistema
-// Zenodo
-// progress bars
-
 #pragma once
 #ifndef CPPFETCH_CORE_HPP
 #define CPPFETCH_CORE_HPP

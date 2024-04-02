@@ -3,7 +3,6 @@
 #define CPPFETCH_UTILS_HPP
 
 #include <cstddef>
-#include <cstdint>
 #include <filesystem>
 
 namespace cppfetch {
