@@ -103,13 +103,18 @@ namespace cppfetch {
             }
             std::filesystem::path actual_path_to_save = path_to_save / filename;
 
-            curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
-            curl_easy_setopt(curl, CURLOPT_WRITEDATA, &actual_path_to_save);
+            if (std::filesystem::exists(actual_path_to_save) && std::filesystem::is_regular_file(actual_path_to_save)) {
+                std::cerr << "Error: a file named " << actual_path_to_save
+                          << " already exists! Operation is skipped!\n";
+            } else {
+                curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
+                curl_easy_setopt(curl, CURLOPT_WRITEDATA, &actual_path_to_save);
 
-            CURLcode res = curl_easy_perform(curl);
-            if (res != CURLE_OK) {
-                std::cerr << "\nError while downloading: " << curl_easy_strerror(res) << "\n";
-                std::exit(0);
+                CURLcode res = curl_easy_perform(curl);
+                if (res != CURLE_OK) {
+                    std::cerr << "Error while downloading: " << curl_easy_strerror(res) << "\n";
+                    std::exit(0);
+                }
             }
             curl_easy_cleanup(curl);
         } else {

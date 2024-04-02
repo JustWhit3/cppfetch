@@ -24,7 +24,7 @@ namespace cppfetch {
 
         size_t totalSize = size * nmemb;
         file.write(reinterpret_cast<const char*>(contents), totalSize);
-        
+
         if (!file.good()) {
             std::cerr << "Error writing to file\n";
             std::exit(0);
