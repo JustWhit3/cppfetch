@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/JustWhit3/cppfetch/blob/main/logo.png" alt="Logo">
+  <img src="https://github.com/JustWhit3/cppfetch/blob/main/img/logo.png" alt="Logo" width=600>
 </p>
 <p align="center">
     <img title="v0.1" alt="v0.1" src="https://img.shields.io/badge/version-v0.1-informational?style=flat-square"
