@@ -7,9 +7,9 @@
         <img title="MIT License" alt="license" src="https://img.shields.io/badge/license-MIT-informational?style=flat-square">
     </a>
 	<img title="C++20" alt="C++20" src="https://img.shields.io/badge/c++-20-informational?style=flat-square"><br/>
-	<img title="Code size" alt="code size" src="https://img.shields.io/github/languages/code-size/JustWhit3/cppfetc?color=red">
-	<img title="Repo size" alt="repo size" src="https://img.shields.io/github/repo-size/JustWhit3/cppfetc?color=red">
-	<img title="Lines of code" alt="total lines" src="https://img.shields.io/tokei/lines/github/JustWhit3/cppfetc?color=red">
+	<img title="Code size" alt="code size" src="https://img.shields.io/github/languages/code-size/JustWhit3/cppfetch?color=red">
+	<img title="Repo size" alt="repo size" src="https://img.shields.io/github/repo-size/JustWhit3/cppfetch?color=red">
+	<img title="Lines of code" alt="total lines" src="https://img.shields.io/tokei/lines/github/JustWhit3/cppfetch?color=red">
 </p>
 
 ## Table of contents
